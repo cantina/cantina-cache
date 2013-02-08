@@ -1,0 +1,27 @@
+{
+  "name": "cantina-cache",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Tag-based caching for cantina apps",
+  "main": "index.js",
+  "dependencies": {
+    "stow": "~0.0.1"
+  },
+  "devDependencies": {
+    "mocha": "*"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cantina/cantina-cache.git"
+  },
+  "homepage": "https://github.com/cantina/cantina-cache",
+  "keywords": [
+    "cantina",
+    "cache"
+  ],
+  "author": "Brian Link <cpsubrian@gmail.com>",
+  "license": "MIT"
+}
