@@ -8,7 +8,9 @@
     "stow": "~0.0.1"
   },
   "devDependencies": {
-    "mocha": "*"
+    "mocha": "*",
+    "cantina": "git+ssh://git@github.com:cantina/cantina.git#2.x",
+    "cantina-redis": "git+ssh://git@github.com/cantina/cantina-redis.git#2.x"
   },
   "scripts": {
     "test": "make test"
