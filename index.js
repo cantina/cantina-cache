@@ -5,7 +5,7 @@ require('cantina-redis');
 
 app.conf.add({
   cache: {
-    prefix: 'cantina:cache:'
+    prefix: [app.conf.get('redis:prefix') || 'cantina', 'cache'].join(':') + ':'
   }
 });
 
