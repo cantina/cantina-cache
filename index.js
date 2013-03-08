@@ -1,7 +1,9 @@
 var app = require('cantina')
-  , stow = require('stow');
+  , stow = require('stow')
+  , CantinaBackend = require('./backend');
 
 require('cantina-redis');
+require('cantina-amino');
 
 app.conf.add({
   cache: {
@@ -10,9 +12,10 @@ app.conf.add({
 });
 
 app.on('init', function () {
-  var conf = app.conf.get('cache');
-  if (!conf.nodes) {
-    conf.client = app.redis;
+  var options = app.conf.get('cache');
+  if (!options.nodes) {
+    options.client = app.redis;
   }
-  app.cache = stow.createCache(stow.backends.Redis, conf);
+  options.amino = app.amino;
+  app.cache = stow.createCache(CantinaBackend, options);
 });
