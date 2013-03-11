@@ -11,12 +11,12 @@ function CantinaBackend (options) {
   };
 
   // Subscriptions
-  this.amino.subscribe(this.key('clear:memory'), function (key, specId) {
+  this.amino.subscribe(this.key('memory', 'clear'), function (key, specId) {
     if (specId !== self.amino.id) {
       self.backends.memory.clear(key, self.handleError.bind(self));
     }
   });
-  this.amino.subscribe(this.key('invalidate:memory'), function (tags, specId) {
+  this.amino.subscribe(this.key('memory', 'invalidate'), function (tags, specId) {
     if (specId !== self.amino.id) {
       self.backends.memory.invalidate(tags, self.handleError.bind(self));
     }
@@ -33,7 +33,7 @@ CantinaBackend.prototype.set = function (options, cb) {
     if (err) return cb(err);
     self.backends.redis.set(options, function (err) {
       if (err) return cb(err);
-      self.amino.publish(self.key('clear:memory'), options.key, self.amino.id);
+      self.amino.publish(self.key('memory', 'clear'), options.key, self.amino.id);
       cb();
     });
   });
@@ -60,7 +60,7 @@ CantinaBackend.prototype.invalidate = function (tags, cb) {
     if (err) return cb(err);
     self.backends.redis.invalidate(tags, function (err) {
       if (err) return cb(err);
-      self.amino.publish(self.key('invalidate:memory'), tags, self.amino.id);
+      self.amino.publish(self.key('memory', 'invalidate'), tags, self.amino.id);
       cb();
     });
   });
@@ -72,7 +72,7 @@ CantinaBackend.prototype.clear = function (pattern, cb) {
     if (err) return cb(err);
     self.backends.redis.clear(pattern, function (err) {
       if (err) return cb(err);
-      self.amino.publish(self.key('clear:memory'), pattern, self.amino.id);
+      self.amino.publish(self.key('memory', 'clear'), pattern, self.amino.id);
       cb();
     });
   });
