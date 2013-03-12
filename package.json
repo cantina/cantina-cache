@@ -11,7 +11,8 @@
     "mocha": "*",
     "cantina": "git+ssh://git@github.com:cantina/cantina.git#2.x",
     "cantina-redis": "git+ssh://git@github.com/cantina/cantina-redis.git#2.x",
-    "cantina-amino": "git+ssh://git@github.com/cantina/cantina-amino.git#2.x"
+    "cantina-amino": "git+ssh://git@github.com/cantina/cantina-amino.git#2.x",
+    "request": "~2.14.0"
   },
   "scripts": {
     "test": "make test"

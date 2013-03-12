@@ -1,4 +1,5 @@
-var stow = require('stow');
+var stow = require('stow')
+  , app = require('cantina')
 
 function CantinaBackend (options) {
   var self = this;
@@ -43,10 +44,18 @@ CantinaBackend.prototype.get = function (key, cb) {
   var self = this;
   self.backends.memory.get(key, function (err, result) {
     if (err) return cb(err);
-    if (result) return cb(null, result);
+    if (result) {
+      app.emit('cache', 'memory', key, 'hit');
+      return cb(null, result);
+    }
+    app.emit('cache', 'memory', key, 'miss');
     self.backends.redis.get(key, function (err, result) {
       if (err) return cb(err);
-      if (!result) return cb(null, null);
+      if (!result) {
+        app.emit('cache', 'redis', key, 'miss');
+        return cb(null, null);
+      }
+      app.emit('cache', 'redis', key, 'hit');
       self.backends.memory.set(result, function (err) {
         cb(err, result);
       });
