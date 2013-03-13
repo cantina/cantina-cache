@@ -14,6 +14,10 @@ describe('cache', function () {
     app.cache.clear(done);
   });
 
+  after(function () {
+    clearRequireCache();
+  });
+
   it('should be able to set and get data', function (done) {
     var key = 'test';
     var data = 'foo';

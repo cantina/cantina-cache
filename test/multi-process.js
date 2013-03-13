@@ -1,7 +1,7 @@
 var child_process = require('child_process')
   , request = require('request')
 
-describe.only('multi-process', function () {
+describe('multi-process', function () {
   var procs = {};
   // random test prefix passed along to child processes
   process.env.TEST_PREFIX = 'cantina-cache-test-' + (Math.random()).toString(24).split('.')[1];
