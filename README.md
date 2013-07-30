@@ -3,6 +3,22 @@ cantina-cache
 
 Tag-based caching for cantina apps
 
+Dependencies
+------------
+
+If using the provided cache backend:
+
+- [cantina-redis](https://github.com/cantina/cantina-redis)
+- [cantina-amino](https://github.com/cantina/cantina-amino)
+
+Provides
+--------
+
+- **app.cache** - A [stow](https://github.com/cpsubrian/stow) instance that uses
+                  a custom backend for cantina applications.
+- **app.cacheBackend** - A custom cache backend for cantina application. Uses
+                         a memory store (for speed) backed by redis, with
+                         multi-process support provided by amino pub/sub.
 
 - - -
 
@@ -13,7 +29,7 @@ strategy firm located in Aptos, CA and Washington, D.C.
 - - -
 
 ### License: MIT
-Copyright (C) 2012 Terra Eclipse, Inc. ([http://www.terraeclipse.com](http://www.terraeclipse.com))
+Copyright (C) 2013 Terra Eclipse, Inc. ([http://www.terraeclipse.com](http://www.terraeclipse.com))
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the &quot;Software&quot;), to deal

@@ -1,10 +1,6 @@
 var app = require('cantina')
   , stow = require('stow')
-  , CantinaBackend = require('./backend')
   , options;
-
-require('cantina-redis');
-require('cantina-amino');
 
 // Default conf.
 app.conf.add({
@@ -15,11 +11,20 @@ app.conf.add({
 
 // Get conf.
 options = app.conf.get('cache');
-options.prefix = app.redisKey(options.prefix);
-if (!options.nodes) {
-  options.client = app.redis;
+
+// Expose overridable cache backend.
+if (!app.cacheBackend) {
+  require('cantina-redis');
+  require('cantina-amino');
+
+  options.prefix = app.redisKey(options.prefix);
+  if (!options.nodes) {
+    options.client = app.redis;
+  }
+  options.amino = app.amino;
+
+  app.cacheBackend = require('./backend');
 }
-options.amino = app.amino;
 
 // Expose cache API.
-app.cache = stow.createCache(CantinaBackend, options);
+app.cache = stow.createCache(app.cacheBackend, options);
