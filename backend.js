@@ -1,5 +1,5 @@
 var stow = require('stow')
-  , app = require('cantina')
+  , app = require('cantina');
 
 function CantinaBackend (options) {
   var self = this;

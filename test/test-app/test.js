@@ -17,23 +17,11 @@ app.middleware.put('/fruit/:type', function (req, res, next) {
 });
 
 app.middleware.post('/fruit/:type', function (req, res, next) {
-  var data = '';
-  req.on('data', function (chunk) {
-    data += chunk;
-  });
-  req.on('end', function () {
-    try {
-      data = JSON.parse(data);
-    }
-    catch (e) {
-      res.writeHead(400);
-      res.end('');
-    }
-    app.cache.set({key: req.url, data: data, tags: {fruit: [req.params.type]}}, function (err) {
-      if (err) return next(err);
-      res.writeHead(201);
-      res.end('');
-    });
+  var data;
+  app.cache.set({key: req.url, data: req.body.value, tags: {fruit: [req.params.type]}}, function (err) {
+    if (err) return next(err);
+    res.writeHead(201);
+    res.end('');
   });
 });
 

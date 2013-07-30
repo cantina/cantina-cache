@@ -1,18 +1,19 @@
 {
   "name": "cantina-cache",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "private": true,
   "description": "Tag-based caching for cantina apps",
-  "main": "index.js",
+  "main": "cantina-cache.js",
   "dependencies": {
-    "stow": "~0.0.4"
+    "stow": "~0.0.5"
   },
   "devDependencies": {
-    "mocha": "*",
-    "cantina": "git+ssh://git@github.com:cantina/cantina.git#2.x",
-    "cantina-redis": "git+ssh://git@github.com/cantina/cantina-redis.git#2.x",
-    "cantina-amino": "git+ssh://git@github.com/cantina/cantina-amino.git#2.x",
-    "request": "~2.14.0"
+    "mocha": "~1.12.0",
+    "cantina": "cantina/cantina#3.x",
+    "cantina-redis": "cantina/cantina-redis#3.x",
+    "cantina-amino": "cantina/cantina-amino#3.x",
+    "cantina-web": "cantina/cantina-web#3.x",
+    "request": "~2.25.0"
   },
   "scripts": {
     "test": "make test"

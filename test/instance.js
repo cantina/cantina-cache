@@ -3,19 +3,21 @@ describe('instance', function () {
 
   before(function (done) {
     app = require('cantina');
-    app.load(function (err) {
+    app.boot(function (err) {
       if (err) return done(err);
+      app.conf.set('web:server:listen', false);
+      app.silence();
+      require('cantina-web');
       require('../');
-      app.init(done);
+      app.start(done);
     });
   });
 
   after(function (done) {
     app.cache.clear(done);
   });
-
-  after(function () {
-    clearRequireCache();
+  after(function (done) {
+    app.destroy(done);
   });
 
   function CustomClass (values) {

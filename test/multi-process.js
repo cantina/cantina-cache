@@ -1,22 +1,20 @@
-var child_process = require('child_process')
-  , request = require('request')
-
 describe('multi-process', function () {
   var procs = {};
-  // random test prefix passed along to child processes
-  process.env.TEST_PREFIX = 'cantina-cache-test-' + (Math.random()).toString(24).split('.')[1];
+
+  process.env.TEST_PREFIX = 'cantina-cache-test-' + Date.now();
 
   function handleProc (name) {
     return function (done) {
       procs[name] = child_process.spawn('node', [__dirname + '/test-app/server.js']);
       procs[name].stdout.on('data', function (data) {
-        var match = data.toString().match(/\:(\d+) started/);
-        if (match) {
+        var body = data.toString();
+        var match = body.match(/\:(\d+) started/);
+        if (body.match(/\:(\d+) started/)) {
           procs[name].baseUrl = 'http://127.0.0.1:' + match[1];
           done();
         }
         else {
-          match = data.toString().match(/^cache\: (memory|redis) (.*) (hit|miss)/);
+          match = body.match(/^cache\: (memory|redis) (.*) (hit|miss)/);
           if (match) {
             procs[name].emit('cache', match[1], match[2], match[3]);
           }
@@ -116,7 +114,7 @@ describe('multi-process', function () {
   });
 
   it('set cache on proc2', function (done) {
-    request({method: 'post', url: procs['proc2'].baseUrl + '/fruit/apple', json: 'fuji'}, function (err, resp, body) {
+    request({method: 'post', url: procs['proc2'].baseUrl + '/fruit/apple', json: {value: 'fuji'}}, function (err, resp, body) {
       assert.ifError(err);
       done();
     });
