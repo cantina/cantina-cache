@@ -17,7 +17,6 @@ if (!app.cacheBackend) {
   require('cantina-redis');
   require('cantina-amino');
 
-  options.prefix = app.redisKey(options.prefix);
   if (!options.nodes) {
     options.client = app.redis;
   }

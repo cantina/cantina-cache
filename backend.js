@@ -5,6 +5,7 @@ function CantinaBackend (options) {
   var self = this;
 
   // Setup
+  this.prefix = options.prefix;
   this.amino = options.amino;
   this.backends = {
     redis: new stow.backends.Redis(options),
@@ -25,7 +26,7 @@ function CantinaBackend (options) {
 }
 
 CantinaBackend.prototype.key = function () {
-  return this.prefix + Array.prototype.slice.call(arguments, 0 ).join(':');
+  return app.redisKey.apply(app, [this.prefix].concat(Array.prototype.slice.call(arguments, 0)));
 };
 
 CantinaBackend.prototype.set = function (options, cb) {
