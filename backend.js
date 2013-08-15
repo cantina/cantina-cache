@@ -4,6 +4,9 @@ var stow = require('stow')
 function CantinaBackend (options) {
   var self = this;
 
+  // Apply the app's redis prefix.
+  options.prefix = app.redisKey(options.prefix) + ':';
+
   // Setup
   this.prefix = options.prefix;
   this.amino = options.amino;
@@ -26,7 +29,7 @@ function CantinaBackend (options) {
 }
 
 CantinaBackend.prototype.key = function () {
-  return app.redisKey.apply(app, [this.prefix].concat(Array.prototype.slice.call(arguments, 0)));
+  return [this.prefix] + Array.prototype.slice.call(arguments, 0).join(':');
 };
 
 CantinaBackend.prototype.set = function (options, cb) {
