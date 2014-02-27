@@ -1,18 +1,32 @@
 var stow = require('stow')
-  , app = require('cantina');
+  , app = require('cantina')
+  , merge = require('tea-merge')
+  , clone = require('clone');
 
 function CantinaBackend (options) {
-  var self = this;
+  var self = this, backend, client, redisOptions, memoryOptions;
+
+  // Remove these so we can clone the options object below
+  // client and probably amino cannot be cloned
+  this.amino = options.amino;
+  client     = options.client;
+  backend    = options.backend;
+  delete options.amino;
+  delete options.client;
+  delete options.backend;
 
   // Apply the app's redis prefix.
-  options.prefix = app.redisKey(options.prefix) + ':';
+  this.prefix = app.redisKey(options.prefix) + ':';
+
+  // More granular conf options for each backend
+  redisOptions = merge({}, clone(options), { prefix: this.prefix }, backend.redis || {});
+  memoryOptions = merge({}, clone(options), backend.memory || {});
+  redisOptions.client = client;
 
   // Setup
-  this.prefix = options.prefix;
-  this.amino = options.amino;
   this.backends = {
-    redis: new stow.backends.Redis(options),
-    memory: new stow.backends.Memory(options)
+    redis: new stow.backends.Redis(redisOptions),
+    memory: new stow.backends.Memory(memoryOptions)
   };
 
   // Subscriptions
