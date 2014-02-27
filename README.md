@@ -14,7 +14,7 @@ If using the provided cache backend:
 Provides
 --------
 
-- **app.cache** - A [stow](https://github.com/cpsubrian/stow) instance that uses
+- **app.cache** - A [stow](https://github.com/cpsubrian/node-stow) instance that uses
                   a custom backend for cantina applications.
 - **app.cacheBackend** - A custom cache backend for cantina application. Uses
                          a memory store (for speed) backed by redis, with
