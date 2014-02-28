@@ -1,6 +1,6 @@
 {
   "name": "cantina-cache",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "private": true,
   "description": "Tag-based caching for cantina apps",
   "main": "cantina-cache.js",
