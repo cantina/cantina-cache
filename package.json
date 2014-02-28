@@ -6,8 +6,7 @@
   "main": "cantina-cache.js",
   "dependencies": {
     "stow": "~0.0.5",
-    "clone": "^0.1.11",
-    "tea-merge": "^0.1.0"
+    "underscore": "~1.6.0"
   },
   "devDependencies": {
     "mocha": "~1.12.0",

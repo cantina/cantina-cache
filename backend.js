@@ -1,32 +1,37 @@
 var stow = require('stow')
   , app = require('cantina')
-  , merge = require('tea-merge')
-  , clone = require('clone');
+  , _ = require('underscore');
 
 function CantinaBackend (options) {
-  var self = this, backend, client, redisOptions, memoryOptions;
+  var self = this
+    , redisOptions = {}
+    , memoryOptions = {};
 
-  // Remove these so we can clone the options object below
-  // client and probably amino cannot be cloned
+  this.prefix = options.prefix = app.redisKey(options.prefix) + ':';
   this.amino = options.amino;
-  client     = options.client;
-  backend    = options.backend;
-  delete options.amino;
+
+  // Check for backend-specific options.
+  if (options.backends && options.backends.redis) {
+    redisOptions = options.backends.redis;
+  }
+  if (options.backends && options.backends.memory) {
+    memoryOptions = options.backends.memory;
+  }
+
+  // Check for redis client.
+  if (options.client) {
+    redisOptions.client = options.client;
+  }
+
+  // Clean up options.
   delete options.client;
-  delete options.backend;
+  delete options.amino;
+  delete options.backends;
 
-  // Apply the app's redis prefix.
-  this.prefix = app.redisKey(options.prefix) + ':';
-
-  // More granular conf options for each backend
-  redisOptions = merge({}, clone(options), { prefix: this.prefix }, backend.redis || {});
-  memoryOptions = merge({}, clone(options), backend.memory || {});
-  redisOptions.client = client;
-
-  // Setup
+  // Create backends.
   this.backends = {
-    redis: new stow.backends.Redis(redisOptions),
-    memory: new stow.backends.Memory(memoryOptions)
+    redis: new stow.backends.Redis(_.extend({}, options, redisOptions)),
+    memory: new stow.backends.Memory(_.extend({}, options, memoryOptions))
   };
 
   // Subscriptions
