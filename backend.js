@@ -17,16 +17,12 @@ function CantinaBackend (options) {
   if (options.backends && options.backends.memory) {
     memoryOptions = options.backends.memory;
   }
+  delete options.backends;
 
   // Check for redis client.
   if (options.client) {
     redisOptions.client = options.client;
   }
-
-  // Clean up options.
-  delete options.client;
-  delete options.amino;
-  delete options.backends;
 
   // Create backends.
   this.backends = {
