@@ -5,7 +5,8 @@
   "description": "Tag-based caching for cantina apps",
   "main": "cantina-cache.js",
   "dependencies": {
-    "stow": "~0.0.5"
+    "stow": "~0.0.5",
+    "underscore": "~1.6.0"
   },
   "devDependencies": {
     "mocha": "~1.12.0",

@@ -1,18 +1,33 @@
 var stow = require('stow')
-  , app = require('cantina');
+  , app = require('cantina')
+  , _ = require('underscore');
 
 function CantinaBackend (options) {
-  var self = this;
+  var self = this
+    , redisOptions = {}
+    , memoryOptions = {};
 
-  // Apply the app's redis prefix.
-  options.prefix = app.redisKey(options.prefix) + ':';
-
-  // Setup
-  this.prefix = options.prefix;
+  this.prefix = options.prefix = app.redisKey(options.prefix) + ':';
   this.amino = options.amino;
+
+  // Check for backend-specific options.
+  if (options.backends && options.backends.redis) {
+    redisOptions = options.backends.redis;
+  }
+  if (options.backends && options.backends.memory) {
+    memoryOptions = options.backends.memory;
+  }
+  delete options.backends;
+
+  // Check for redis client.
+  if (options.client) {
+    redisOptions.client = options.client;
+  }
+
+  // Create backends.
   this.backends = {
-    redis: new stow.backends.Redis(options),
-    memory: new stow.backends.Memory(options)
+    redis: new stow.backends.Redis(_.extend({}, options, redisOptions)),
+    memory: new stow.backends.Memory(_.extend({}, options, memoryOptions))
   };
 
   // Subscriptions
