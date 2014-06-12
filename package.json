@@ -1,19 +1,23 @@
 {
   "name": "cantina-cache",
-  "version": "3.0.3",
-  "private": true,
   "description": "Tag-based caching for cantina apps",
+  "version": "4.0.0-dev",
+  "publishConfig": {
+    "registry": "https://npm-registry.terraeclipse.com"
+  },
   "main": "cantina-cache.js",
   "dependencies": {
     "stow": "~0.0.5",
     "underscore": "~1.6.0"
   },
+  "peerDependencies": {
+    "cantina": "~4.0.0"
+  },
   "devDependencies": {
     "mocha": "~1.12.0",
-    "cantina": "cantina/cantina#3.x",
-    "cantina-redis": "cantina/cantina-redis#3.x",
-    "cantina-amino": "cantina/cantina-amino#3.x",
-    "cantina-web": "cantina/cantina-web#3.x",
+    "cantina-redis": "~4.0.0",
+    "cantina-amino": "~4.0.0",
+    "cantina-web": "~4.0.0",
     "request": "~2.25.0"
   },
   "scripts": {
@@ -28,6 +32,5 @@
     "cantina",
     "cache"
   ],
-  "author": "Brian Link <cpsubrian@gmail.com>",
-  "license": "MIT"
+  "author": "Brian Link <cpsubrian@gmail.com>"
 }
