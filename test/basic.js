@@ -2,13 +2,13 @@ describe('cache', function () {
   var app;
 
   before(function (done) {
-    app = require('cantina');
+    app = require('cantina').createApp();
     app.boot(function (err) {
       if (err) return done(err);
       app.conf.set('web:server:listen', false);
       app.silence();
       require('cantina-web');
-      require('../');
+      app.require('../');
       app.start(done);
     });
   });
