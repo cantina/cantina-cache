@@ -1,7 +1,7 @@
 {
   "name": "cantina-cache",
   "description": "Tag-based caching for cantina apps",
-  "version": "4.0.0-dev",
+  "version": "4.1.0",
   "publishConfig": {
     "registry": "https://npm-registry.terraeclipse.com"
   },
