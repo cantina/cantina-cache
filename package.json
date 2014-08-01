@@ -2,9 +2,6 @@
   "name": "cantina-cache",
   "description": "Tag-based caching for cantina apps",
   "version": "4.1.0",
-  "publishConfig": {
-    "registry": "https://npm-registry.terraeclipse.com"
-  },
   "main": "cantina-cache.js",
   "dependencies": {
     "stow": "~0.0.5",
@@ -27,6 +24,12 @@
     "type": "git",
     "url": "git://github.com/cantina/cantina-cache.git"
   },
+  "licenses": [
+    {
+      "type": "Apache-2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  ],
   "homepage": "https://github.com/cantina/cantina-cache",
   "keywords": [
     "cantina",

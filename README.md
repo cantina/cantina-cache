@@ -1,7 +1,9 @@
 cantina-cache
 =============
 
-Tag-based caching for cantina apps
+Tag-based caching for cantina apps. Uses [stow](https://github.com/cpsubrian/node-stow)
+and provides a duel memory/redis storage backend. Utilizes [cantina-amino](https://github.com/cantina/cantina-amino)
+to sync the memory-cache clears and invalidations across multiple processes or machines.
 
 Dependencies
 ------------
