@@ -1,4 +1,6 @@
 var stow = require('stow')
+  , MemoryBackend = require('stow/backends/memory')
+  , RedisBackend = require('stow/backends/redis')
   , app = require('cantina')
   , _ = require('underscore');
 
@@ -26,8 +28,8 @@ function CantinaBackend (options) {
 
   // Create backends.
   this.backends = {
-    redis: new stow.backends.Redis(_.extend({}, options, redisOptions)),
-    memory: new stow.backends.Memory(_.extend({}, options, memoryOptions))
+    redis: new stow.createCache(RedisBackend, _.extend({}, options, redisOptions)),
+    memory: new stow.createCache(MemoryBackend, _.extend({}, options, memoryOptions))
   };
 
   // Subscriptions
