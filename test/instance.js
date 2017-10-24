@@ -40,13 +40,12 @@ describe('instance', function () {
   var data = new CustomClass({foo: 'foo', bar: 2});
   assert(data.id);
 
-  it('should return same instance locally', function (done) {
+  it('should use toJSON from a custom Class', function (done) {
     app.cache.set(key, data, function (err) {
       assert.ifError(err);
       app.cache.get(key, function (err, result) {
         assert.ifError(err);
-        // We should get the same instance of CustomClass from memory.
-        assert.deepEqual(result.data, data);
+        assert.deepEqual(result.data, data.toJSON());
         done();
       });
     });
