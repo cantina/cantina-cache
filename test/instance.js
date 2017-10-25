@@ -40,12 +40,12 @@ describe('instance', function () {
   var data = new CustomClass({foo: 'foo', bar: 2});
   assert(data.id);
 
-  it('should use toJSON from a custom Class', function (done) {
+  it('should return same instance that was cached', function (done) {
     app.cache.set(key, data, function (err) {
       assert.ifError(err);
       app.cache.get(key, function (err, result) {
         assert.ifError(err);
-        assert.deepEqual(result.data, data.toJSON());
+        assert.equal(result.data, data);
         done();
       });
     });
